@@ -25,13 +25,15 @@ public class ExceptionTest{
 
 3. Exception & RuntimeException
 
-   - Exception클래스 및 모든 자손클래스 : 외적인 요소에 의해 발생하는 예외
+   1. Exception클래스 및 모든 자손클래스 : 외적인 요소에 의해 발생하는 예외
 
       ex) IOException : 입출력 예외 / ClassNotFoundException : 클래스가 존재하지 않음
 
-   - RuntimeException클래스 : 개발자의 실수로 발생하는 예외
+   2. RuntimeException클래스 : 개발자의 실수로 발생하는 예외
 
       ex) ArihmeticException : 산술계산 예외 / ClassCastException : 형변환 예외 / 
 
-     NullPointerException : 널포인트 예외 / IndexOutOfException : 배열범위 벗어남
+      NullPointerException : 널포인트 예외 / IndexOutOfException : 배열범위 벗어남
+
+4. 
 
