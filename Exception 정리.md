@@ -31,9 +31,66 @@ public class ExceptionTest{
 
    2. RuntimeException클래스 : 개발자의 실수로 발생하는 예외
 
-      ex) ArihmeticException : 산술계산 예외 / ClassCastException : 형변환 예외 / 
+      ex) ArihmeticException : 산술계산 예외(0으로 나눌때) / ClassCastException : 형변환 예외 / 
 
-      NullPointerException : 널포인트 예외 / IndexOutOfException : 배열범위 벗어남
+      NullPointerException : 널포인트 예외(참조변수가 null 일 때) / IndexOutOfException : 배열범위 벗어남
 
-4. 
+4. 예외 처리 방법 (try-catch 문)
 
+   ```java
+   try{
+       	//예외가 발생할 가능성이 있는 문장
+   	} catch(Exception e1){
+           //e1이 발생시 처리하기 위한 문장
+       } catch(Exception e2){
+   		//e2이 발생시 처리하기 위한 문장    
+   	} catch(Exceprion eN){
+       	//eN이 발생시 처리하기 위한 문장
+   	}
+   
+   ```
+
+5. printStackTrace()와 getMessage()
+
+   - printStackTrace() : 예외발생 당시의 호출스택에 있던 메소드 정보와 예외 메세지를 화면에 출력
+   - getMessage() : 발생한 예외 클래스의 인스턴스에 저장된 메세지
+
+6.  멀티 catch 블럭
+
+   - 내용이 같은 catch 블럭을 하나로 합친것
+
+   - 합쳐지는 두개의 클래스가 부모 자식관계 일땐 성립불가( 쓸이유가 없음 : 조상것으로 처리하면 됨)
+
+   - ex) ExceptionA, ExceptionB 둘중 하나만 있는 메소드는 호출 불가, 공통된 메소드만 사용가능(instanceof로 형변환 해서 사용 가능)
+
+     ```java
+     try{
+         
+     }catch(ExceptionA e ){
+         e.printStackTrace();
+     }catch(ExceptionB e2) {
+         e2.printStackTracce();
+     }
+     
+     //위와 동일
+     try{
+         catch(ExceptionA | ExceptionB e){
+             e.printStackTrace();
+         }
+     }
+     ```
+
+7.  예외 발생시키기
+
+   - 연산자 new를 이용해서 발생시키려는 예외 클래스를 객체로 만든 다음 키워드 throw를 이용해서 예외를 발생 시킨다.(throw 하게되면 catch에서 잡는다. )
+
+     ```java
+     Exception e = new Exception("고의로 예외 객체 생성");
+     throw e;
+     //e.getMessage() : "고의로 예외 객체 생성"
+     ```
+
+8.  checked, unchecked 예외
+
+   - checked 예외 : 컴파일러가 예외 처리 여부를 체크(예외 처리 필수) -> Exception과 그 자손
+   - unchecked 예외 : 컴파일러가 예외 처리 여부를 체크 안함(예외 처리 선택) -> RuntimeException과 그자손
