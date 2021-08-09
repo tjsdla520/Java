@@ -94,3 +94,87 @@ public class ExceptionTest{
 
    - checked 예외 : 컴파일러가 예외 처리 여부를 체크(예외 처리 필수) -> Exception과 그 자손
    - unchecked 예외 : 컴파일러가 예외 처리 여부를 체크 안함(예외 처리 선택) -> RuntimeException과 그자손
+
+9. 메소드 예외 선언
+
+   - try-catch 이외의 예외처리하는 방법으로 예외 처리가 아니라 호출시에 처리하는 것  
+
+     ```java
+     void method() throws Exception1, Exception2, ExceptionN{
+         //메소드 내용
+     }
+     
+     void method() throws Exception{
+         //메소드 내용
+     }
+     ```
+
+10.  finally 블럭
+
+    - 예외 발생 여부와 상관없이 수행되는 코드
+    - try-catch에서 동일하게 실행되는 코드를 finally{}블럭에 넣는다.
+
+11. 사용자 정의 예외
+
+    - 사용자가 직접 예외 클래스로 처리하는것
+    - 조상은 Exception, RuntimeException중에서 선택하여 처리가능하다.
+
+    ```java
+    class MyException extends Exception{
+        MyException(String msg){ //문자열을 매개변수로 받는 생성자
+            super(msg);//조상인Exception클래스의 생성자를 호출한다.
+        }
+    }
+    ```
+
+12. 예외 되던지기(exception re-throwing)
+
+    - 예외를 분담 처리 시에 사용함. 예외 처리 후 다시 예외를 발생키시는 것
+
+    - 호출한 메소드와 호출된 메소드 양쪽에서 모두 예외처리를 하는 것
+
+      ```java
+      class ExceptionTest{
+          public static void main(String[] args){
+              try{
+                  method1();
+              } catch(Exception e){ //4. 다시발생된 예외 처리
+                  System.out.println("main 메소드에서 예외처리 완료");
+              }
+          }
+          
+          static void method1() throws Exception{
+              try{
+                  throw new Exception(); //1. 예외발생
+              } catch(Exception e){
+                  System.out.println("method1메소드에서 예외처리 완료");//2. 예외처리
+                  throw e; //3. 다시 예외 발생
+              }
+          }
+      }
+      ```
+
+13.  연결된 예외(chained exception)
+
+    - 하나의 예외가 다른 예외를 발생키시는 것 ( 예외A가 예외B를 발생킬시 A는 B의 원인 예외(cause exception))
+
+    - 하나의 예외 안에 또 다른 예외를 포함시키는 것
+
+    - 여러 예외를 하나의 예외로 묶어서 처리 가능
+
+    - checked 예외를 unchecked예외로 변경하여 처리 가능
+
+      ```java
+      public class Thorwable implements Serializable{
+          //Throwable : Exception과 Error의 조상
+          private Throwable cause = this; //객체 자신(this)을 원인 예외로 등록
+          
+          public synchronized Throwable initCause(Throwable cause){
+              this.cause = cause; //cause를 원인 예외로 등록
+              return this;
+          }
+      }
+      ```
+
+      
+
