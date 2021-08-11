@@ -2,13 +2,15 @@
 
 ### <제네릭스(Generics)>
 
-1. 제네릭스(Generics)란?
+1.  제네릭스(Generics)란?
 
    - 컴파일시 타입을 체크해 주는 기능(compile-time type check)
 
    - 객체 타입의 안정성을 높이고 형변환의 번거로움을 줄여주기 때문에 코드가 간결해짐 
 
    - ClassCastException 을 막아 줄 수 있음(실행전에 확인가능 RuntimeException보다 빠르게 수정가능)
+
+   - 형변환을 하지 않아도 되서 코드가 간결해짐. 컴파일 타임 에서 타입체크가 쉬워진다.
 
      ```java
      // 컴파일시에는 list.get(2)가 반환 타입이 object라서 Integer로 변환 시 문제 없으나 
@@ -42,7 +44,7 @@
      }
      ```
 
-2.  타입 변수
+2.   타입 변수
 
    - 클래스를 작성할 때 Object타입 대신 타입변수(E)를 선언해서 사용
 
@@ -70,7 +72,7 @@
      ArrayList<TV> tvList = new ArrayList<TV>();
      ```
    
-3. 제네릭스 용어
+3.  제네릭스 용어
 
    - 지네릭 클래스 
 
@@ -93,4 +95,29 @@
    - 참조변수와 생성자의 대입된 타입을 일치해야 한다.
 
      (제네릭 클래스간, 매개변수의 다형성은 성립되나 대입된 타입은 다형성 성립x )
+
+   - iterator, HashMap<K,V> 역시 동일 사용
+
+4.  제한된 지네릭 클래스
+
+   - extends로 대입할 수 있는 타입을 제한(인터페이스인 경우에도 extends 사용)
+
+5. 와일드 카드 <?>
+
+   - 하나의 참조 변수로 대입된 타입이 다른 객체를 참조 가능
+
+   - 메소드의 매개변수에서도 와일드 카드 사용 가능
+
+     ```java
+     ArrayList<? extends Product> list = new ArrayList<TV>(); 
+     ArrayList<? extends Product> list = new ArrayList<Audio>();
+     
+     //이를 가능하게 하도록하는것이 와일드 카드
+     //종류
+     //1, <? extends T> : 와일드 카드의 상한 제한. T와 그자손들만 가능
+     //2, <? super T> : 와일드 카드의 하한 제한. T와 그 조상들만 가능
+     //3, <?> : 제한이 없고 모든 타입이 가능 <? extends Object>와 동일
+     ```
+
+​           
 
